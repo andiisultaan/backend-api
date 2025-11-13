@@ -4,6 +4,9 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./graphql/typeDefs";
 import { resolvers } from "./graphql/resolvers";
 import { initializeDatabasePools, closeDatabasePools, DatabasePool } from "./config/database";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const startServer = async () => {
   const app: Express = express();
