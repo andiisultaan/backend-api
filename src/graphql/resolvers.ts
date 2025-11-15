@@ -1289,5 +1289,61 @@ export const resolvers = {
         return null;
       }
     },
+
+    kelas: async (parent: any, _args: any, context: Context) => {
+      try {
+        const query = "SELECT * FROM kelas WHERE replid = ?";
+        const [rows] = await context.db.akademik.query(query, [parent.idkelas]);
+
+        if (!Array.isArray(rows) || rows.length === 0) {
+          return null;
+        }
+
+        const row = rows[0] as any;
+
+        return {
+          ...row,
+          ts: row.ts ? row.ts.toISOString() : null,
+        };
+      } catch (error) {
+        console.error("Error fetching kelas for nau:", error);
+        return null;
+      }
+    },
+
+    tahunajaran: async (parent: any, _args: any, context: Context) => {
+      try {
+        // Step 1: Ambil kelas berdasarkan idkelas
+        const kelasQuery = "SELECT * FROM kelas WHERE replid = ?";
+        const [kelasRows] = await context.db.akademik.query(kelasQuery, [parent.idkelas]);
+
+        if (!Array.isArray(kelasRows) || kelasRows.length === 0) {
+          return null;
+        }
+
+        const kelas = kelasRows[0] as any;
+        const idtahunajaran = kelas.idtahunajaran;
+
+        // Step 2: Ambil tahun ajaran berdasarkan idtahunajaran dari kelas
+        const tahunajaranQuery = "SELECT * FROM tahunajaran WHERE replid = ?";
+        const [tahunajaranRows] = await context.db.akademik.query(tahunajaranQuery, [idtahunajaran]);
+
+        if (!Array.isArray(tahunajaranRows) || tahunajaranRows.length === 0) {
+          return null;
+        }
+
+        const row = tahunajaranRows[0] as any;
+
+        return {
+          ...row,
+          tglmulai: row.tglmulai ? row.tglmulai.toISOString() : null,
+          tglakhir: row.tglakhir ? row.tglakhir.toISOString() : null,
+          ts: row.ts ? row.ts.toISOString() : null,
+        };
+      } catch (error) {
+        console.error("Error fetching tahunajaran for nau:", error);
+        return null;
+      }
+    },
   },
 };

@@ -20,7 +20,7 @@ const createAkademikPool = (): mysql.Pool => {
   const host = validateEnvVar("AKADEMIK_DB_HOST", process.env.AKADEMIK_DB_HOST);
   const port = Number(process.env.AKADEMIK_DB_PORT) || 3306;
   const user = validateEnvVar("AKADEMIK_DB_USER", process.env.AKADEMIK_DB_USER);
-  const password = process.env.AKADEMIK_DB_PASSWORD || "";
+  const password = process.env.AKADEMIK_DB_PASSWORD;
   const database = validateEnvVar("AKADEMIK_DB_NAME", process.env.AKADEMIK_DB_NAME);
 
   if (isNaN(port) || port <= 0) {

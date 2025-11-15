@@ -10,7 +10,7 @@ dotenv.config();
 
 const startServer = async () => {
   const app: Express = express();
-  const PORT = process.env.PORT || 4000;
+  const PORT = Number(process.env.PORT) || 4000;
 
   // Konfigurasi CORS
   const corsOptions = {
@@ -118,19 +118,9 @@ const startServer = async () => {
     res.json({ status: "OK", timestamp: new Date().toISOString() });
   });
 
-  const httpServer = app.listen(PORT, () => {
-    console.log("\n🚀 Server Information:");
-    console.log(`   GraphQL Server: http://localhost:${PORT}${server.graphqlPath}`);
-    console.log(`   GraphQL Playground: http://localhost:${PORT}${server.graphqlPath}`);
-    console.log(`   Health Check: http://localhost:${PORT}/health`);
-    console.log(`   Environment: ${process.env.NODE_ENV || "development"}`);
-    console.log(`   Started at: ${new Date().toISOString()}`);
-    console.log("\n📊 CORS Configuration:");
-    console.log(`   ✓ http://localhost:3000`);
-    console.log(`   ✓ http://localhost:4000`);
-    console.log(`   ✓ https://studio.apollographql.com`);
-    console.log(`   ✓ https://sandbox.apollographql.com`);
-    console.log("\n📊 Waiting for requests...\n");
+  const httpServer = app.listen(PORT, "0.0.0.0", () => {
+    console.log("Server Information:");
+    console.log(`   GraphQL Server: is running`);
   });
 
   const gracefulShutdown = async () => {

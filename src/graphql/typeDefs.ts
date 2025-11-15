@@ -67,6 +67,9 @@ export const typeDefs = gql`
     # Nilai Akhir Ujian
     nau(replid: Int!): Nau
     nauByNis(nis: String!): [Nau!]
+
+    # Tahun Ajaran
+    getTahunAjaran(replid: Int!): TahunAjaran!
   }
 
   # ========================
@@ -436,5 +439,27 @@ export const typeDefs = gql`
     issync: Int!
     pelajaran: Pelajaran
     semester: Semester
+    tahunajaran: TahunAjaran 
+    kelas: Kelas
   }
+
+  # ========================
+  # TAHUN AJARAN
+  # ========================
+
+  type TahunAjaran {
+  replid: Int!
+  tahunajaran: String!
+  departemen: String!
+  tglmulai: String
+  tglakhir: String
+  aktif: Int!
+  keterangan: String
+  info1: String
+  info2: String
+  info3: String
+  ts: String!
+  token: String!
+  issync: Int!
+}
 `;
