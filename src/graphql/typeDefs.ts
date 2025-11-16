@@ -429,7 +429,7 @@ export const typeDefs = gql`
     grade: String!
     keterangan: String
     idaturan: Int!
-    komentar: String!
+    komentar: String
     dasarpenilaian: String!
     info1: String
     info2: String
